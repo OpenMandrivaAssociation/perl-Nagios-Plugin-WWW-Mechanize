@@ -2,8 +2,12 @@
 %define upstream_version 0.12
 
 Name:       perl-%{upstream_name}
+%if %mdkversion > 200900
 Version:    %perl_convert_version %{upstream_version}
-Release:    %mkrel 1
+%else
+Version:    %{upstream_version}
+%fi
+Release:    %mkrel 2
 Summary:    Login to a web page as a user and get data as a Nagios plugin
 License:    GPL+ or Artistic
 Group:      Development/Perl
