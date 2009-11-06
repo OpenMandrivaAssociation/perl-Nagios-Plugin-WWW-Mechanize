@@ -1,5 +1,5 @@
 %define upstream_name    Nagios-Plugin-WWW-Mechanize
-%define upstream_version 0.12
+%define upstream_version 0.13
 
 Name:       perl-%{upstream_name}
 %if %mdkversion > 200900
@@ -7,7 +7,7 @@ Version:    %perl_convert_version %{upstream_version}
 %else
 Version:    %{upstream_version}
 %endif
-Release:    %mkrel 2
+Release:    %mkrel 1
 Summary:    Login to a web page as a user and get data as a Nagios plugin
 License:    GPL+ or Artistic
 Group:      Development/Perl
