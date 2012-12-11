@@ -1,24 +1,21 @@
 %define upstream_name    Nagios-Plugin-WWW-Mechanize
 %define upstream_version 0.13
 
-Name:       perl-%{upstream_name}
-%if %mdkversion > 200900
-Version:    %perl_convert_version %{upstream_version}
-%else
-Version:    %{upstream_version}
-%endif
-Release:    %mkrel 1
-Summary:    Login to a web page as a user and get data as a Nagios plugin
-License:    GPL+ or Artistic
-Group:      Development/Perl
-Url:        http://search.cpan.org/dist/%{upstream_name}
-Source0:    http://www.cpan.org/modules/by-module/Nagios/%{upstream_name}-%{upstream_version}.tar.gz
-BuildRequires: perl(ExtUtils::MakeMaker)
-BuildRequires: perl(Nagios::Plugin)
-BuildRequires: perl(Time::HiRes)
-BuildRequires: perl(WWW::Mechanize)
-BuildArch: noarch
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
+Name:		perl-%{upstream_name}
+Version:	%perl_convert_version %{upstream_version}
+Release:	2
+Summary:	Login to a web page as a user and get data as a Nagios plugin
+License:	GPL+ or Artistic
+Group:		Development/Perl
+Url:		http://search.cpan.org/dist/%{upstream_name}
+Source0:	http://www.cpan.org/modules/by-module/Nagios/%{upstream_name}-%{upstream_version}.tar.gz
+
+BuildRequires:	perl-devel
+BuildRequires:	perl(ExtUtils::MakeMaker)
+BuildRequires:	perl(Nagios::Plugin)
+BuildRequires:	perl(Time::HiRes)
+BuildRequires:	perl(WWW::Mechanize)
+BuildArch:	noarch
 
 %description
 This module ties Nagios::Plugin with WWW::Mechanize so that there's less
@@ -33,23 +30,33 @@ that as performance data.
 %setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-
-%{make}
+perl Makefile.PL INSTALLDIRS=vendor
+%make
 
 %check
-%{make} test
+%make test
 
 %install
-rm -rf %buildroot
 %makeinstall_std
 
-%clean
-rm -rf %buildroot
-
 %files
-%defattr(-,root,root)
 %doc Changes LICENSE
 %{_mandir}/man3/*
-%perl_vendorlib/Nagios
+%{perl_vendorlib}/Nagios
 
+%changelog
+* Fri Nov 06 2009 Jérôme Quelin <jquelin@mandriva.org> 0.130.0-1mdv2010.1
++ Revision: 461331
+- update to 0.13
+
+* Thu Oct 22 2009 Guillaume Rousse <guillomovitch@mandriva.org> 0.120.0-2mdv2010.0
++ Revision: 458765
+- ensure backportability
+
+* Tue Sep 15 2009 Guillaume Rousse <guillomovitch@mandriva.org> 0.120.0-1mdv2010.0
++ Revision: 443244
+- import perl-Nagios-Plugin-WWW-Mechanize
+
+
+* Tue Sep 15 2009 cpan2dist 0.12-1mdv
+- initial mdv release, generated with cpan2dist
